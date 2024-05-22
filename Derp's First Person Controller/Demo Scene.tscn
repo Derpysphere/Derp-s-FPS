@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://t22svm17tgih"]
+
+[ext_resource type="Texture2D" uid="uid://bvdvvyl31xdyd" path="res://addons/godot-prototype-texture/PNG/grid_black_512x512.png" id="1_qdj6j"]
+[ext_resource type="PackedScene" uid="uid://d2ctkisicdrxh" path="res://Derp's First Person Controller/Player.tscn" id="2_fkxni"]
+[ext_resource type="PackedScene" uid="uid://4k4tqli1lvfx" path="res://box.tscn" id="2_xgxit"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5h5m"]
+albedo_texture = ExtResource("1_qdj6j")
+
+[sub_resource type="BoxMesh" id="BoxMesh_pngfb"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jyj6m"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="Environment" id="Environment_554xt"]
+background_mode = 1
+background_color = Color(0.4, 0.698039, 0.792157, 1)
+background_energy_multiplier = 0.99
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ssao_enabled = true
+ssao_radius = 4.87
+ssao_intensity = 4.64
+ssao_detail = 0.88
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 0.18, 0, 0, 0, 50.896, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_a5h5m")
+mesh = SubResource("BoxMesh_pngfb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_jyj6m")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_fkxni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Box" parent="." instance=ExtResource("2_xgxit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52418, 0.09, 3.72295)
+
+[node name="Box2" parent="." instance=ExtResource("2_xgxit")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63581, 0.09, -2.52141)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_554xt")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.434162, 0.900835, 0, -0.900835, 0.434162, 0, 5.92276, 4.54373)
